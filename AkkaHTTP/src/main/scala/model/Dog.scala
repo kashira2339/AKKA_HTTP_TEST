@@ -14,7 +14,6 @@ trait DogTable extends DefaultJsonProtocol {
   class DogTable(tag: Tag) extends Table[Dog](tag, "dog") {
     val id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     val name = column[String]("name")
-
     def * = (name, id.?) <>(Dog.tupled, Dog.unapply)
 
   }

@@ -37,6 +37,7 @@ trait DogDao extends DogTable with MySQLDBImpl {
 
   def ddl = db.run {
     dogTableQuery.schema.create
+    print("ddl")
   }
 
   protected def dogTableAutoInc = dogTableQuery returning dogTableQuery.map(_.id)

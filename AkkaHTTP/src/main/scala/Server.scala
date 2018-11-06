@@ -5,7 +5,7 @@ import dao.DogDao
 import model.Dog
 import http.DogRoutes
 import scala.io.StdIn
-
+import scala.util.{Success,Failure}
 import scala.concurrent.ExecutionContextExecutor
 
 object Server extends App with DogRoutes with DogDao {
@@ -17,7 +17,9 @@ object Server extends App with DogRoutes with DogDao {
   implicit val dispatcher: ExecutionContextExecutor = system.dispatcher
 
   ddl.onComplete {
-    _ =>
+    case Failure(e)=>
+      e.printStackTrace()
+    case Success(_) =>
       create(Dog("Bailey"))
       create(Dog("Max"))
       create(Dog("Charlie"))
